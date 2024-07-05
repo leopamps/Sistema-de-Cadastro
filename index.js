@@ -1,24 +1,28 @@
-const express = require('express')
+const express = require("express")
 const app = express()
+const handlebars = require('express-handlebars')
+const Sequelize = require('sequelize')
+
 const port = 3000
 
-app.get("/", function(req, res){
-    res.sendFile(__dirname+"/html/index.html")
-})
+//config
+    //template engine
+    app.engine('handlebars', handlebars({defaultLayout: 'main'}))
+    app.set('view engine','handlebars')
+    //conexao com o banco de dados sql
+    const sequelize = new Sequelize('teste','root', 'admin', {
+        host: "localhost",
+        dialect: 'mysql'
+    })
 
-app.get("/sobre", function(req, res){
-    res.sendFile(__dirname+"/html/sobre.html")
-})
+//Rotas
+    app.get('/cad', function(req, res){
+        res.send("Rota de cadastro")
+    })
 
-app.get("/blog", function(req, res){
-    res.send("Pagina blog")
-})
+    
 
-app.get("/ola/:nome/:cargo", function(req, res){
-    res.send(req.params)
-})
-
-//localhost:3000
+//escuta a porta 3000
 app.listen(port, function(){
     console.log(`Servidor ativo na porta: ${port}`)
 })
