@@ -21,14 +21,14 @@ const port = 3000
 
 //Rotas
     app.get('/cadastro', function(req, res){
-       res.render('formulario')
+       res.render('formulario') 
     })
 
-    app.post('/adiciona', function(res,res){
-        res.send("Formulario recebido")
+    app.post('/adiciona', function(req, res){
+        res.send("Texto: "+req.body.titulo+"\nConteudo: "+req.body.conteudo)
     })
 
-
+    
 //escuta a porta 3000
 app.listen(port, function(){
     console.log(`Servidor ativo na porta: ${port}`)
