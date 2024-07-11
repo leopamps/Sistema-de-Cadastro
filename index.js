@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const handlebars = require('express-handlebars')
 const bodyParser = require('body-parser')
-const Post = require('Post')
+const Post = require('./models/Post')
 const port = 3000
 
 //config
@@ -14,12 +14,23 @@ const port = 3000
     app.use(bodyParser.json())
 
 //Rotas
+    app.get('/', function(req,res){
+        res.render('home')
+    })
+
     app.get('/cadastro', function(req, res){
        res.render('formulario') 
     })
 
     app.post('/adiciona', function(req, res){
-        res.send("Texto: "+req.body.titulo+"Conteudo: "+req.body.conteudo)
+        Post.create({
+            titulo: req.body.titulo,
+            conteudo: req.body.conteudo
+        }).then(function(){
+            res.redirect('/')
+        }).catch(function(erro){
+            res.send("Houve um erro: " + erro)
+        })
     })
 
     
