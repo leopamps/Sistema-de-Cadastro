@@ -7,7 +7,7 @@ const port = 3000
 
 //config
     //template engine
-    app.engine('handlebars', handlebars.engine({defaultLayout: 'main'}))
+    app.engine('handlebars', handlebars.engine({defaultLayout: 'home'}))
     app.set('view engine','handlebars')
     //body parser
     app.use(bodyParser.urlencoded({extended: false}))
